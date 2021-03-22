@@ -2,8 +2,8 @@ $(function () {
   // Add a new burger.
   $(".create-form").on("submit", function (event) {
     event.preventDefault();
-    console.log("Adding new burger");
-    const newBurger = {
+
+    var newBurger = {
       burger_name: $("#newburger").val().trim(),
       devoured: 0,
     };
@@ -13,12 +13,13 @@ $(function () {
       type: "POST",
       data: newBurger,
     }).then(function () {
+      console.log("Added new burger");
       // Reload the page to get the updated burger list.
       location.reload();
     });
   });
 
-  $(".eatburger").on("click", function (event) {
+  $(".devour-burger").on("click", function (event) {
     event.preventDefault();
 
     var id = $(this).data("id");
@@ -36,15 +37,15 @@ $(function () {
     });
   });
 
-  $(".trashburger").on("click", function (event) {
+  $(".delete-burger").on("click", function (event) {
     event.preventDefault();
 
-    var id = $(this).data("id");
+    const id = $(this).data("id");
 
     // Send the DELETE request.
     $.ajax({
       type: "DELETE",
-      url: "/api/burgers/" + id,
+      url: "/api/burger/" + id,
     }).then(location.reload());
   });
 });
